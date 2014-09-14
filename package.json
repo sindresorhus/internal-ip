@@ -1,0 +1,40 @@
+{
+  "name": "internal-ip",
+  "version": "0.0.0",
+  "description": "Get your internal IPv4 address",
+  "license": "MIT",
+  "repository": "sindresorhus/internal-ip",
+  "author": {
+    "name": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "http://sindresorhus.com"
+  },
+  "bin": {
+    "internal-ip": "cli.js"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "node test.js"
+  },
+  "files": [
+    "index.js",
+    "cli.js"
+  ],
+  "keywords": [
+    "cli-app",
+    "cli",
+    "bin",
+    "ip",
+    "ipv4",
+    "address",
+    "internal",
+    "local",
+    "machine"
+  ],
+  "devDependencies": {
+    "ava": "0.0.4",
+    "is-ip": "^1.0.0"
+  }
+}
