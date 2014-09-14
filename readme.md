@@ -32,6 +32,11 @@ internalIp();
 ```
 
 
+## Related
+
+See [public-ip](https://github.com/sindresorhus/public-ip) or [ipify](https://github.com/sindresorhus/ipify) to get your external IP address.
+
+
 ## License
 
 MIT © [Sindre Sorhus](http://sindresorhus.com)
