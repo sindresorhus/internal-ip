@@ -5,7 +5,7 @@
 
 ## CLI
 
-```sh
+```
 $ npm install --global internal-ip
 ```
 
@@ -20,7 +20,7 @@ $ internal-ip --help
 
 ## API
 
-```sh
+```
 $ npm install --save internal-ip
 ```
 

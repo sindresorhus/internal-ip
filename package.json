@@ -7,11 +7,9 @@
   "author": {
     "name": "Sindre Sorhus",
     "email": "sindresorhus@gmail.com",
-    "url": "http://sindresorhus.com"
+    "url": "sindresorhus.com"
   },
-  "bin": {
-    "internal-ip": "cli.js"
-  },
+  "bin": "cli.js",
   "engines": {
     "node": ">=0.10.0"
   },
@@ -33,11 +31,11 @@
     "local",
     "machine"
   ],
+  "dependencies": {
+    "meow": "^3.1.0"
+  },
   "devDependencies": {
     "ava": "0.0.4",
     "is-ip": "^1.0.0"
-  },
-  "dependencies": {
-    "meow": "^3.1.0"
   }
 }
