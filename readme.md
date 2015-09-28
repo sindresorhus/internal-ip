@@ -1,6 +1,6 @@
 # internal-ip [![Build Status](https://travis-ci.org/sindresorhus/internal-ip.svg?branch=master)](https://travis-ci.org/sindresorhus/internal-ip)
 
-> Get your internal IPv4 address
+> Get your internal IPv4 or IPv6 address
 
 
 ## CLI
@@ -12,8 +12,6 @@ $ npm install --global internal-ip
 ```
 $ internal-ip --help
 
-  Get your internal IPv4 or IPv6 address
-
   Usage
     $ internal-ip
 
@@ -23,7 +21,6 @@ $ internal-ip --help
   Example
     $ internal-ip
     192.168.0.123
-
     $ internal-ip --ipv6
     fe80::200:f8ff:fe21:67cf
 ```
@@ -39,10 +36,10 @@ $ npm install --save internal-ip
 var internalIp = require('internal-ip');
 
 internalIp.v4();
-//=> 192.168.0.123
+//=> '192.168.0.123'
 
 internalIp.v6();
-//=> fe80::200:f8ff:fe21:67cf
+//=> 'fe80::200:f8ff:fe21:67cf'
 ```
 
 

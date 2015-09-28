@@ -14,7 +14,6 @@ var cli = meow({
 		'Examples',
 		'  $ internal-ip',
 		'  192.168.0.123',
-		'',
 		'  $ internal-ip --ipv6',
 		'  fe80::200:f8ff:fe21:67cf'
 	]
