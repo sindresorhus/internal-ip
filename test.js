@@ -1,19 +1,18 @@
-'use strict';
-var test = require('ava');
-var isIp = require('is-ip');
-var internalIp = require('./');
+import test from 'ava';
+import isIp from 'is-ip';
+import fn from './';
 
-test('main', function (t) {
-	t.assert(isIp(internalIp()));
+test('main', t => {
+	t.true(isIp.v4(fn()));
 	t.end();
 });
 
-test('IPv4', function (t) {
-	t.assert(isIp(internalIp.v4()));
+test('IPv4', t => {
+	t.true(isIp.v4(fn.v4()));
 	t.end();
 });
 
-test('IPv6', function (t) {
-	t.assert(isIp(internalIp.v6()));
+test('IPv6', t => {
+	t.true(isIp.v6(fn.v6()));
 	t.end();
 });
