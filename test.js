@@ -1,18 +1,15 @@
 import test from 'ava';
 import isIp from 'is-ip';
-import fn from './';
+import m from './';
 
 test('main', t => {
-	t.true(isIp.v4(fn()));
-	t.end();
+	t.true(isIp.v4(m()));
 });
 
 test('IPv4', t => {
-	t.true(isIp.v4(fn.v4()));
-	t.end();
+	t.true(isIp.v4(m.v4()));
 });
 
 test('IPv6', t => {
-	t.true(isIp.v6(fn.v6()));
-	t.end();
+	t.true(isIp.v6(m.v6()));
 });
