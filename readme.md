@@ -16,12 +16,13 @@ $ internal-ip --help
     $ internal-ip
 
   Options
-    --ipv6  Return the IPv6 address instead of IPv4
+    -4, --ipv4  Return the IPv4 address (default)
+    -6, --ipv6  Return the IPv6 address
 
   Example
     $ internal-ip
     192.168.0.123
-    $ internal-ip --ipv6
+    $ internal-ip -6
     fe80::200:f8ff:fe21:67cf
 ```
 
