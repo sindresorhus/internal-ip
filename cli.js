@@ -27,5 +27,7 @@ var cli = meow({
 });
 
 var fn = cli.flags.ipv4 ? 'v4' : cli.flags.ipv6 ? 'v6' : 'v4';
-
-console.log(internalIp[fn]());
+internalIp[fn]().then(function (err, ip) {
+	console[err ? 'error' : 'log'](err || ip);
+	process.exit(err ? 1 : 0);
+});

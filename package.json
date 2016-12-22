@@ -33,11 +33,11 @@
     "machine"
   ],
   "dependencies": {
+    "default-network": "^0.2.0",
     "meow": "^3.3.0"
   },
   "devDependencies": {
     "ava": "*",
-    "is-ip": "^1.0.0",
     "xo": "^0.16.0"
   }
 }

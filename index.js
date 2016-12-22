@@ -1,39 +1,32 @@
 'use strict';
-var os = require('os');
+const os = require('os');
+const defaultNetwork = require('default-network');
 
-var type = {
-	v4: {
-		def: '127.0.0.1',
-		family: 'IPv4'
-	},
-	v6: {
-		def: '::1',
-		family: 'IPv6'
-	}
+const def = {
+	IPv4: '127.0.0.1',
+	IPv6: '::1'
 };
 
-function internalIp(version) {
-	var options = type[version];
-	var ret = options.def;
-	var interfaces = os.networkInterfaces();
-
-	Object.keys(interfaces).forEach(function (el) {
-		interfaces[el].forEach(function (el2) {
-			if (!el2.internal && el2.family === options.family) {
-				ret = el2.address;
+function internalIp(family) {
+	return new Promise(function (resolve) {
+		defaultNetwork.collect(function (_err, data) {
+			const addresses = os.networkInterfaces()[Object.keys(data)[0]];
+			const networkInterface = addresses.find(address => address.family === family);
+			if (networkInterface && networkInterface.address) {
+				resolve(networkInterface.address);
+			} else {
+				resolve(def[family]);
 			}
 		});
 	});
-
-	return ret;
 }
 
 function v4() {
-	return internalIp('v4');
+	return internalIp('IPv4');
 }
 
 function v6() {
-	return internalIp('v6');
+	return internalIp('IPv6');
 }
 
 module.exports = v4;
