@@ -18,6 +18,10 @@ function internalIp(version) {
 	var interfaces = os.networkInterfaces();
 
 	Object.keys(interfaces).forEach(function (el) {
+		if (el.indexOf('vboxnet') > -1) {
+			return;
+		}
+
 		interfaces[el].forEach(function (el2) {
 			if (!el2.internal && el2.family === options.family) {
 				ret = el2.address;
