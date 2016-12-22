@@ -9,12 +9,20 @@ const def = {
 
 function internalIp(family) {
 	return new Promise(function (resolve) {
-		defaultNetwork.collect(function (err, data) {
-			if (err || !data || !Object.keys(data).length) {
+		defaultNetwork.collect(function (err, interfaces) {
+			if (err || !interfaces || !Object.keys(interfaces).length) {
 				return resolve(def[family]);
 			}
 
-			const addresses = os.networkInterfaces()[Object.keys(data)[0]];
+			const foundInterface = Object.keys(interfaces).find(intf => {
+				return interfaces[intf].find((addr, i) => {
+					if (addr.family === family) {
+						return intf;
+					}
+				});
+			});
+
+			const addresses = os.networkInterfaces()[foundInterface];
 			const networkInterface = addresses.find(address => address.family === family);
 
 			if (networkInterface && networkInterface.address) {
