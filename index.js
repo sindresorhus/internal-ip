@@ -10,7 +10,7 @@ const def = {
 function internalIp(family) {
 	return new Promise(function (resolve) {
 		defaultNetwork.collect(function (err, data) {
-			if (err || !data.length) {
+			if (err || !data || !Object.keys(data).length) {
 				return resolve(def[family]);
 			}
 
