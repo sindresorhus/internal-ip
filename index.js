@@ -9,9 +9,14 @@ const def = {
 
 function internalIp(family) {
 	return new Promise(function (resolve) {
-		defaultNetwork.collect(function (_err, data) {
+		defaultNetwork.collect(function (err, data) {
+			if (err || !data.length) {
+				return resolve(def[family]);
+			}
+
 			const addresses = os.networkInterfaces()[Object.keys(data)[0]];
 			const networkInterface = addresses.find(address => address.family === family);
+
 			if (networkInterface && networkInterface.address) {
 				resolve(networkInterface.address);
 			} else {
