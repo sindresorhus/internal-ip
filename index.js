@@ -15,7 +15,7 @@ function internalIp(family) {
 			}
 
 			const foundInterface = Object.keys(interfaces).find(intf => {
-				return interfaces[intf].find((addr, i) => {
+				return interfaces[intf].find((addr) => {
 					if (addr.family === family) {
 						return intf;
 					}
