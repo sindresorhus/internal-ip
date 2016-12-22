@@ -15,12 +15,14 @@ function internalIp(family) {
 			}
 
 			const foundInterface = Object.keys(interfaces).find(intf => {
-				return interfaces[intf].find((addr) => {
-					if (addr.family === family) {
-						return intf;
-					}
+				return interfaces[intf].find(addr => {
+					return addr.family === family ? intf : false;
 				});
 			});
+
+			if (!foundInterface) {
+				return resolve(def[family]);
+			}
 
 			const addresses = os.networkInterfaces()[foundInterface];
 			const networkInterface = addresses.find(address => address.family === family);
