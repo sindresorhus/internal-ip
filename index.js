@@ -2,16 +2,15 @@
 const os = require('os');
 const defaultNetwork = require('default-network');
 
-const def = {
-	IPv4: '127.0.0.1',
-	IPv6: '::1'
-};
-
 function internalIp(family) {
-	return new Promise(function (resolve) {
+	return new Promise(function (resolve, reject) {
 		defaultNetwork.collect(function (err, interfaces) {
-			if (err || !interfaces || !Object.keys(interfaces).length) {
-				return resolve(def[family]);
+			if (err) {
+				return reject(err);
+			}
+
+			if (!interfaces || !Object.keys(interfaces).length) {
+				return reject(new Error('No interfaces found'));
 			}
 
 			const foundInterface = Object.keys(interfaces).find(intf => {
@@ -21,17 +20,17 @@ function internalIp(family) {
 			});
 
 			if (!foundInterface) {
-				return resolve(def[family]);
+				return reject(new Error('No matching interface found for family ' + family));
 			}
 
 			const addresses = os.networkInterfaces()[foundInterface];
 			const networkInterface = addresses.find(address => address.family === family);
 
-			if (networkInterface && networkInterface.address) {
-				resolve(networkInterface.address);
-			} else {
-				resolve(def[family]);
+			if (!networkInterface || !networkInterface.address) {
+				return reject(new Error('Interface ' + foundInterface + 'not found in os.networkInterfaces()'));
 			}
+
+			resolve(networkInterface.address);
 		});
 	});
 }

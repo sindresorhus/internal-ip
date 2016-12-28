@@ -36,10 +36,10 @@ $ npm install --save internal-ip
 ```js
 var internalIp = require('internal-ip');
 
-internalIp.v4().then(ip => console.log(ip));
+internalIp.v4().then(ip => console.log(ip)).catch(err => console.error(err));
 //=> '192.168.0.123'
 
-internalIp.v6().then(ip => console.log(ip));
+internalIp.v6().then(ip => console.log(ip)).catch(err => console.error(err));
 //=> 'fe80::200:f8ff:fe21:67cf'
 ```
 
