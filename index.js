@@ -14,18 +14,20 @@ var type = {
 
 function internalIp(version) {
 	var options = type[version];
-	var ret = options.def;
+	var ret;
 	var interfaces = os.networkInterfaces();
 
-	Object.keys(interfaces).forEach(function (el) {
-		interfaces[el].forEach(function (el2) {
+	Object.keys(interfaces).some(function (el) {
+		interfaces[el].some(function (el2) {
 			if (!el2.internal && el2.family === options.family) {
 				ret = el2.address;
+				return true;
 			}
 		});
+		return ret;
 	});
 
-	return ret;
+	return ret || options.def;
 }
 
 function v4() {
