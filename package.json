@@ -33,11 +33,13 @@
     "machine"
   ],
   "dependencies": {
-    "default-network": "^0.2.0",
-    "meow": "^3.3.0"
+    "default-gateway": "^1.0.2",
+    "ip": "^1.1.5",
+    "ipaddr.js": "^1.4.0",
+    "meow": "^3.7.0"
   },
   "devDependencies": {
     "ava": "*",
-    "xo": "^0.16.0"
+    "xo": "^0.18.2"
   }
 }

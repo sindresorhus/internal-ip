@@ -1,48 +1,41 @@
 'use strict';
+
+const defaultGateway = require('default-gateway');
+const ipaddr = require('ipaddr.js');
 const os = require('os');
-const defaultNetwork = require('default-network');
+
+// TODO: Remove dependency on ip module
+// https://github.com/whitequark/ipaddr.js/issues/59
+const ip = require('ip');
 
 function internalIp(family) {
-	return new Promise(function (resolve, reject) {
-		defaultNetwork.collect(function (err, interfaces) {
-			if (err) {
-				return reject(err);
-			}
+	return defaultGateway[family]().then(result => {
+		const interfaces = os.networkInterfaces();
+		let ret;
 
-			if (!interfaces || !Object.keys(interfaces).length) {
-				return reject(new Error('No interfaces found'));
-			}
+		// Remove IPv6 zone index and parse gateway address as a ipaddr.js object
+		// https://github.com/whitequark/ipaddr.js/issues/60
+		const gatewayIp = ipaddr.parse(result.gateway.replace(/%.+/, ''));
 
-			const foundInterface = Object.keys(interfaces).find(intf => {
-				return interfaces[intf].find(addr => {
-					return addr.family === family ? intf : false;
-				});
+		// Look for the matching interface in all local interfaces
+		Object.keys(interfaces).some(name => {
+			return interfaces[name].some(addr => {
+				var subnet = ip.subnet(addr.address, addr.netmask);
+				var net = ipaddr.parseCIDR(addr.address + '/' + subnet.subnetMaskLength);
+				if (net[0].kind() === gatewayIp.kind() && gatewayIp.match(net)) {
+					ret = net[0].toString();
+				}
 			});
-
-			if (!foundInterface) {
-				return reject(new Error('No matching interface found for family ' + family));
-			}
-
-			const addresses = os.networkInterfaces()[foundInterface];
-			const networkInterface = addresses.find(address => address.family === family);
-
-			if (!networkInterface || !networkInterface.address) {
-				return reject(new Error('Interface ' + foundInterface + 'not found in os.networkInterfaces()'));
-			}
-
-			resolve(networkInterface.address);
 		});
+
+		if (!ret) {
+			throw new Error('Unable to determine internal IP');
+		}
+
+		return ret;
 	});
 }
 
-function v4() {
-	return internalIp('IPv4');
-}
-
-function v6() {
-	return internalIp('IPv6');
-}
-
-module.exports = v4;
-module.exports.v4 = v4;
-module.exports.v6 = v6;
+module.exports = () => internalIp('v4');
+module.exports.v4 = () => internalIp('v4');
+module.exports.v6 = () => internalIp('v6');
