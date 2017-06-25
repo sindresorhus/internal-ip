@@ -43,6 +43,7 @@ internalIp.v6().then(ip => console.log(ip)).catch(err => console.error(err));
 //=> 'fe80::200:f8ff:fe21:67cf'
 ```
 
+In case no address can be determined, `127.0.0.1` or `::1` will be returned as a replacement. If you think this is in error, please open an [issue](https://github.com/sindresorhus/internal-ip/issues/new).
 
 ## Related
 
