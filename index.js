@@ -11,7 +11,7 @@ const ipaddr = require('ipaddr.js');
 const defaults = {
 	v4: '127.0.0.1',
 	v6: '::1'
-}
+};
 
 function internalIp(family) {
 	return defaultGateway[family]().then(result => {
