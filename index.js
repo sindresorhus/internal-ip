@@ -8,6 +8,11 @@ const defaultGateway = require('default-gateway');
 const ip = require('ip');
 const ipaddr = require('ipaddr.js');
 
+const defaults = {
+	v4: '127.0.0.1',
+	v6: '::1'
+}
+
 function internalIp(family) {
 	return defaultGateway[family]().then(result => {
 		const interfaces = os.networkInterfaces();
@@ -29,11 +34,9 @@ function internalIp(family) {
 			});
 		});
 
-		if (!ret) {
-			throw new Error('Unable to determine internal IP');
-		}
-
-		return ret;
+		return ret ? ret : defaults[family];
+	}).catch(() => {
+		return defaults[family];
 	});
 }
 

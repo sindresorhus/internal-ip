@@ -33,7 +33,7 @@
     "machine"
   ],
   "dependencies": {
-    "default-gateway": "^1.0.2",
+    "default-gateway": "^1.0.4",
     "ip": "^1.1.5",
     "ipaddr.js": "^1.4.0",
     "meow": "^3.7.0"
