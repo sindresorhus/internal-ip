@@ -1,12 +1,12 @@
 'use strict';
 
-const defaultGateway = require('default-gateway');
-const ipaddr = require('ipaddr.js');
-const os = require('os');
-
 // TODO: Remove dependency on ip module
 // https://github.com/whitequark/ipaddr.js/issues/59
+
+const os = require('os');
+const defaultGateway = require('default-gateway');
 const ip = require('ip');
+const ipaddr = require('ipaddr.js');
 
 function internalIp(family) {
 	return defaultGateway[family]().then(result => {
@@ -20,11 +20,12 @@ function internalIp(family) {
 		// Look for the matching interface in all local interfaces
 		Object.keys(interfaces).some(name => {
 			return interfaces[name].some(addr => {
-				var subnet = ip.subnet(addr.address, addr.netmask);
-				var net = ipaddr.parseCIDR(addr.address + '/' + subnet.subnetMaskLength);
+				const subnet = ip.subnet(addr.address, addr.netmask);
+				const net = ipaddr.parseCIDR(addr.address + '/' + subnet.subnetMaskLength);
 				if (net[0].kind() === gatewayIp.kind() && gatewayIp.match(net)) {
 					ret = net[0].toString();
 				}
+				return Boolean(ret);
 			});
 		});
 
