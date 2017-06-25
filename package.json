@@ -11,7 +11,7 @@
   },
   "bin": "cli.js",
   "engines": {
-    "node": ">=4"
+    "node": ">=6"
   },
   "scripts": {
     "test": "xo && ava"
@@ -33,7 +33,7 @@
     "machine"
   ],
   "dependencies": {
-    "default-gateway": "^1.0.4",
+    "default-gateway": "^2.0.0",
     "ip": "^1.1.5",
     "ipaddr.js": "^1.4.0",
     "meow": "^3.7.0"
