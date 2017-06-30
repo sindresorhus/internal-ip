@@ -1,45 +1,42 @@
 {
-  "name": "internal-ip",
-  "version": "1.2.0",
-  "description": "Get your internal IPv4 or IPv6 address",
-  "license": "MIT",
-  "repository": "sindresorhus/internal-ip",
-  "author": {
-    "name": "Sindre Sorhus",
-    "email": "sindresorhus@gmail.com",
-    "url": "sindresorhus.com"
-  },
-  "bin": "cli.js",
-  "engines": {
-    "node": ">=6"
-  },
-  "scripts": {
-    "test": "xo && ava"
-  },
-  "files": [
-    "index.js",
-    "cli.js"
-  ],
-  "keywords": [
-    "cli-app",
-    "cli",
-    "bin",
-    "ip",
-    "ipv4",
-    "ipv6",
-    "address",
-    "internal",
-    "local",
-    "machine"
-  ],
-  "dependencies": {
-    "default-gateway": "^2.0.0",
-    "ip": "^1.1.5",
-    "ipaddr.js": "^1.4.0",
-    "meow": "^3.7.0"
-  },
-  "devDependencies": {
-    "ava": "*",
-    "xo": "^0.18.2"
-  }
+	"name": "internal-ip",
+	"version": "1.2.0",
+	"description": "Get your internal IP address",
+	"license": "MIT",
+	"repository": "sindresorhus/internal-ip",
+	"author": {
+		"name": "Sindre Sorhus",
+		"email": "sindresorhus@gmail.com",
+		"url": "sindresorhus.com"
+	},
+	"engines": {
+		"node": ">=6"
+	},
+	"scripts": {
+		"test": "xo && ava"
+	},
+	"files": [
+		"index.js"
+	],
+	"keywords": [
+		"ip",
+		"ipv6",
+		"ipv4",
+		"address",
+		"internal",
+		"local",
+		"machine",
+		"system",
+		"net",
+		"gateway"
+	],
+	"dependencies": {
+		"default-gateway": "^2.0.0",
+		"ip": "^1.1.5",
+		"ipaddr.js": "^1.4.0"
+	},
+	"devDependencies": {
+		"ava": "*",
+		"xo": "*"
+	}
 }
