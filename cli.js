@@ -1,10 +1,9 @@
 #!/usr/bin/env node
-/* eslint-disable no-nested-ternary */
 'use strict';
-var meow = require('meow');
-var internalIp = require('./');
+const meow = require('meow');
+const internalIp = require('./');
 
-var cli = meow({
+const cli = meow({
 	help: [
 		'Usage',
 		'  $ internal-ip',
@@ -26,6 +25,8 @@ var cli = meow({
 	}
 });
 
-var fn = cli.flags.ipv4 ? 'v4' : cli.flags.ipv6 ? 'v6' : 'v4';
-
-console.log(internalIp[fn]());
+const fn = cli.flags.ipv4 ? 'v4' : cli.flags.ipv6 ? 'v6' : 'v4';
+internalIp[fn]().then((err, ip) => {
+	console[err ? 'error' : 'log'](err || ip);
+	process.exit(err ? 1 : 0);
+});

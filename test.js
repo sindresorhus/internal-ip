@@ -1,15 +1,15 @@
+import {isIPv4, isIPv6} from 'net';
 import test from 'ava';
-import isIp from 'is-ip';
 import m from './';
 
-test('main', t => {
-	t.true(isIp.v4(m()));
+test('main', async t => {
+	t.true(isIPv4(await m()));
 });
 
-test('IPv4', t => {
-	t.true(isIp.v4(m.v4()));
+test('IPv4', async t => {
+	t.true(isIPv4(await m.v4()));
 });
 
-test('IPv6', t => {
-	t.true(isIp.v6(m.v6()));
+test('IPv6', async t => {
+	t.true(isIPv6(await m.v6()));
 });
