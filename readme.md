@@ -26,6 +26,8 @@ internalIp.v4().then(ip => {
 });
 ```
 
+The module relies on tools provided by most operating systems. One notable exception may be the `ip` command which is used on Linux. If it's missing, it can usually be installed with the `iproute2` package in your package manager.
+
 In the case no address can be determined, `::1` or `127.0.0.1` will be returned as a fallback. If you think this is incorrect, please open an [issue](https://github.com/sindresorhus/internal-ip/issues/new).
 
 
