@@ -8,7 +8,7 @@ const defaults = {
 	v4: '127.0.0.1'
 };
 
-function match(gateway, family) {
+function findIp(gateway, family) {
 	const interfaces = os.networkInterfaces();
 	const gatewayIp = ipaddr.parse(gateway);
 	let ret;
@@ -32,13 +32,17 @@ function match(gateway, family) {
 
 function promise(family) {
 	return defaultGateway[family]().then(result => {
-		return match(result.gateway, family);
+		return findIp(result.gateway, family);
 	}).catch(() => defaults[family]);
 }
 
 function sync(family) {
-	const result = defaultGateway[family].sync();
-	return match(result.gateway, family);
+	try {
+		const result = defaultGateway[family].sync();
+		return findIp(result.gateway, family);
+	} catch (err) {
+		return defaults[family];
+	}
 }
 
 module.exports.v6 = () => promise('v6');
