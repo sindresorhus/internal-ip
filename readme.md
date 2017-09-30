@@ -15,21 +15,21 @@ $ npm install internal-ip
 ```js
 const internalIp = require('internal-ip');
 
-internalIp.v4().then(ip => {
-	console.log(ip);
-	//=> '10.0.0.79'
-});
-
 internalIp.v6().then(ip => {
 	console.log(ip);
 	//=> 'fe80::1'
 });
 
-console.log(internalIp.v4().sync())
-//=> '10.0.0.79'
+internalIp.v4().then(ip => {
+	console.log(ip);
+	//=> '10.0.0.79'
+});
 
 console.log(internalIp.v6().sync())
 //=> 'fe80::1'
+
+console.log(internalIp.v4().sync())
+//=> '10.0.0.79'
 ```
 
 The module returns the address of the internet-facing interface, as determined from the default gateway. When the adress cannot be determined for any reason, `null` will be returned.

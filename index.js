@@ -27,14 +27,14 @@ function findIp(gateway) {
 
 function promise(family) {
 	return defaultGateway[family]().then(result => {
-		return findIp(result.gateway);
+		return findIp(result.gateway) || null;
 	}).catch(() => null);
 }
 
 function sync(family) {
 	try {
 		const result = defaultGateway[family].sync();
-		return findIp(result.gateway);
+		return findIp(result.gateway) || null;
 	} catch (err) {
 		return null;
 	}

@@ -2,22 +2,42 @@ import {isIPv4, isIPv6} from 'net';
 import test from 'ava';
 import m from '.';
 
-// Skip tests on Travis as their VMs don't have IPs on their interfaces
+// Travis VMs don't have IPs on their interfaces
 // https://docs.travis-ci.com/user/ci-environment/#Networking
-if (!process.env.CI) {
-	test('IPv6', async t => {
-		t.true(isIPv6(await m.v6()));
-	});
+const ci = Boolean(process.env.CI);
 
-	test('IPv4', async t => {
-		t.true(isIPv4(await m.v4()));
-	});
+test('IPv6', async t => {
+	const ip = await m.v6();
+	if (ci) {
+		t.is(ip, null);
+	} else {
+		t.true(isIPv6(ip));
+	}
+});
 
-	test('synchronous IPv6', t => {
-		t.true(isIPv6(m.v6.sync()));
-	});
+test('IPv4', async t => {
+	const ip = await m.v4();
+	if (ci) {
+		t.is(ip, null);
+	} else {
+		t.true(isIPv4(ip));
+	}
+});
 
-	test('synchronous IPv4', t => {
-		t.true(isIPv4(m.v4.sync()));
-	});
-}
+test('synchronous IPv6', t => {
+	const ip = m.v6.sync();
+	if (ci) {
+		t.is(ip, null);
+	} else {
+		t.true(isIPv6(ip));
+	}
+});
+
+test('synchronous IPv4', t => {
+	const ip = m.v4.sync();
+	if (ci) {
+		t.is(ip, null);
+	} else {
+		t.true(isIPv4(ip));
+	}
+});
