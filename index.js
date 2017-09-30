@@ -3,12 +3,7 @@ const os = require('os');
 const defaultGateway = require('default-gateway');
 const ipaddr = require('ipaddr.js');
 
-const defaults = {
-	v6: '::1',
-	v4: '127.0.0.1'
-};
-
-function findIp(gateway, family) {
+function findIp(gateway) {
 	const interfaces = os.networkInterfaces();
 	const gatewayIp = ipaddr.parse(gateway);
 	let ip;
@@ -23,25 +18,25 @@ function findIp(gateway, family) {
 				ip = net[0].toString();
 			}
 
-			return Boolean(ret);
+			return Boolean(ip);
 		});
 	});
 
-	return ip || defaults[family];
+	return ip;
 }
 
 function promise(family) {
 	return defaultGateway[family]().then(result => {
-		return findIp(result.gateway, family);
-	}).catch(() => defaults[family]);
+		return findIp(result.gateway);
+	}).catch(() => null);
 }
 
 function sync(family) {
 	try {
 		const result = defaultGateway[family].sync();
-		return findIp(result.gateway, family);
+		return findIp(result.gateway);
 	} catch (err) {
-		return defaults[family];
+		return null;
 	}
 }
 
