@@ -11,7 +11,7 @@ const defaults = {
 function findIp(gateway, family) {
 	const interfaces = os.networkInterfaces();
 	const gatewayIp = ipaddr.parse(gateway);
-	let ret;
+	let ip;
 
 	// Look for the matching interface in all local interfaces
 	Object.keys(interfaces).some(name => {
@@ -19,15 +19,15 @@ function findIp(gateway, family) {
 			const prefix = ipaddr.parse(addr.netmask).prefixLengthFromSubnetMask();
 			const net = ipaddr.parseCIDR(`${addr.address}/${prefix}`);
 
-			if (net[0].kind() === gatewayIp.kind() && gatewayIp.match(net)) {
-				ret = net[0].toString();
+			if (net[0] && net[0].kind() === gatewayIp.kind() && gatewayIp.match(net)) {
+				ip = net[0].toString();
 			}
 
 			return Boolean(ret);
 		});
 	});
 
-	return ret ? ret : defaults[family];
+	return ip || defaults[family];
 }
 
 function promise(family) {
