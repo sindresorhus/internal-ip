@@ -25,10 +25,10 @@ internalIp.v4().then(ip => {
 	//=> '10.0.0.79'
 });
 
-console.log(internalIp.v6().sync())
+console.log(internalIp.v6.sync())
 //=> 'fe80::1'
 
-console.log(internalIp.v4().sync())
+console.log(internalIp.v4.sync())
 //=> '10.0.0.79'
 ```
 
