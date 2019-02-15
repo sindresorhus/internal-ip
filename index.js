@@ -35,7 +35,7 @@ function sync(family) {
 	try {
 		const result = defaultGateway[family].sync();
 		return findIp(result.gateway) || null;
-	} catch (err) {
+	} catch (error) {
 		return null;
 	}
 }
