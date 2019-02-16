@@ -10,7 +10,7 @@
 		"url": "sindresorhus.com"
 	},
 	"engines": {
-		"node": ">=4"
+		"node": ">=6"
 	},
 	"scripts": {
 		"test": "xo && ava"
@@ -37,11 +37,12 @@
 		"linux",
 		"openbsd",
 		"sunos",
-		"win32"
+		"win32",
+		"aix"
 	],
 	"dependencies": {
-		"default-gateway": "^2.6.0",
-		"ipaddr.js": "^1.5.2"
+		"default-gateway": "^3.1.0",
+		"ipaddr.js": "^1.9.0"
 	},
 	"devDependencies": {
 		"ava": "*",
