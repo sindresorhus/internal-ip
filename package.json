@@ -30,22 +30,12 @@
 		"net",
 		"gateway"
 	],
-	"os": [
-		"android",
-		"darwin",
-		"freebsd",
-		"linux",
-		"openbsd",
-		"sunos",
-		"win32",
-		"aix"
-	],
 	"dependencies": {
 		"default-gateway": "^3.1.0",
 		"ipaddr.js": "^1.9.0"
 	},
 	"devDependencies": {
-		"ava": "*",
-		"xo": "*"
+		"ava": "^1.2.1",
+		"xo": "^0.24.0"
 	}
 }

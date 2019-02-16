@@ -15,15 +15,13 @@ $ npm install internal-ip
 ```js
 const internalIp = require('internal-ip');
 
-internalIp.v6().then(ip => {
-	console.log(ip);
+(async () => {
+	console.log(await internalIp.v6());
 	//=> 'fe80::1'
-});
 
-internalIp.v4().then(ip => {
-	console.log(ip);
+	console.log(await internalIp.v4());
 	//=> '10.0.0.79'
-});
+})();
 
 console.log(internalIp.v6.sync())
 //=> 'fe80::1'
