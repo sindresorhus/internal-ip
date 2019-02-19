@@ -13,7 +13,7 @@
 		"node": ">=6"
 	},
 	"scripts": {
-		"test": "xo && ava"
+		"test": "xo && ava && tsd-check"
 	},
 	"files": [
 		"index.js"
@@ -32,7 +32,8 @@
 	],
 	"dependencies": {
 		"default-gateway": "^3.1.0",
-		"ipaddr.js": "^1.9.0"
+		"ipaddr.js": "^1.9.0",
+		"tsd-check": "^0.3.0"
 	},
 	"devDependencies": {
 		"ava": "^1.2.1",
