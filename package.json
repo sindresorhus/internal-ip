@@ -32,11 +32,11 @@
 	],
 	"dependencies": {
 		"default-gateway": "^3.1.0",
-		"ipaddr.js": "^1.9.0",
-		"tsd-check": "^0.3.0"
+		"ipaddr.js": "^1.9.0"
 	},
 	"devDependencies": {
 		"ava": "^1.2.1",
+		"tsd-check": "^0.3.0",
 		"xo": "^0.24.0"
 	}
 }
