@@ -1,10 +1,10 @@
 declare module internalIp {
 	/**
-	 *
-	 * Returns the address ipv6 of the internet-facing interface, as determined from the default gateway. When the address cannot be determined for any reason, null will be returned.
-	 * @returns string of the ip address
+	 * Returns the address ipv6 of the internet-facing interface, as determined from the default gateway. When the address cannot be determined for any reason, `null` will be returned.
+	 * @returns The IP address.
 	 *
 	 * @example
+	 *
 	 * console.log(await internalIp.v6());
 	 * //=> 'fe80::1'
 	 *
@@ -13,11 +13,12 @@ declare module internalIp {
 	export namespace v6 {
 		/**
 		 *
-		 * Returns the address ipv6 of the internet-facing interface, as determined from the default gateway. When the address cannot be determined for any reason, null will be returned.
-		 * @returns string of the ip address
+		 * Returns the address ipv6 of the internet-facing interface, as determined from the default gateway. When the address cannot be determined for any reason, `null` will be returned.
+		 * @returns The IP address.
 		 *
 		 * @example
-		 * console.log(await internalIp.v6());
+		 *
+		 * console.log(internalIp.v6.sync());
 		 * //=> 'fe80::1'
 		 *
 		 */
@@ -25,12 +26,12 @@ declare module internalIp {
 	}
 
 	/**
-	 *
-	 * Returns the address ipv4 of the internet-facing interface, as determined from the default gateway. When the address cannot be determined for any reason, null will be returned.
-	 * @returns string of the ip address
+	 * Returns the address ipv4 of the internet-facing interface, as determined from the default gateway. When the address cannot be determined for any reason, `null` will be returned.
+	 * @returns The IP address.
 	 *
 	 * @example
-	 * console.log(internalIp.v6.sync())
+	 *
+	 * console.log(await internalIp.v4())
 	 * //=> '10.0.0.79'
 	 *
 	 */
@@ -38,8 +39,8 @@ declare module internalIp {
 	export namespace v4 {
 		/**
 		 *
-		 * Returns the address ipv4 of the internet-facing interface, as determined from the default gateway. When the address cannot be determined for any reason, null will be returned.
-		 * @returns string of the ip address
+		 * Returns the address ipv4 of the internet-facing interface, as determined from the default gateway. When the address cannot be determined for any reason, `null` will be returned.
+		 * @returns The IP address.
 		 *
 		 * @example
 		 * console.log(internalIp.v4.sync())
