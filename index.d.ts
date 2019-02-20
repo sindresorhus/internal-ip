@@ -1,4 +1,4 @@
-declare module internalIp {
+declare namespace internalIp {
 	/**
 	 * Returns the address ipv6 of the internet-facing interface, as determined from the default gateway. When the address cannot be determined for any reason, `null` will be returned.
 	 * @returns The IP address.
