@@ -27,6 +27,7 @@ function findIp(gateway) {
 
 function promise(family) {
 	return defaultGateway[family]().then(result => {
+		console.log(result);
 		return findIp(result.gateway) || null;
 	}).catch(() => null);
 }
@@ -34,6 +35,7 @@ function promise(family) {
 function sync(family) {
 	try {
 		const result = defaultGateway[family].sync();
+		console.log(result);
 		return findIp(result.gateway) || null;
 	} catch (error) {
 		return null;
