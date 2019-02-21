@@ -1,4 +1,4 @@
-import { expectType } from 'tsd-check';
+import {expectType} from 'tsd-check';
 import internalIp from '.';
 
 expectType<string>(await internalIp.v4());
