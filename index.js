@@ -5,6 +5,7 @@ const ipaddr = require('ipaddr.js');
 
 function findIp(gateway) {
 	const interfaces = os.networkInterfaces();
+	console.log(interfaces);
 	const gatewayIp = ipaddr.parse(gateway);
 	let ip;
 
