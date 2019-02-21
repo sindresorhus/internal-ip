@@ -3,8 +3,6 @@ const os = require('os');
 const defaultGateway = require('default-gateway');
 const ipaddr = require('ipaddr.js');
 
-const internalIp = {};
-
 function findIp(gateway) {
 	const interfaces = os.networkInterfaces();
 	const gatewayIp = ipaddr.parse(gateway);
@@ -42,15 +40,11 @@ function sync(family) {
 	}
 }
 
+const internalIp = {};
 internalIp.v6 = () => promise('v6');
 internalIp.v4 = () => promise('v4');
 internalIp.v6.sync = () => sync('v6');
 internalIp.v4.sync = () => sync('v4');
 
-module.exports.v6 = () => promise('v6');
-module.exports.v4 = () => promise('v4');
-
-module.exports.v6.sync = () => sync('v6');
-module.exports.v4.sync = () => sync('v4');
-
+module.exports = internalIp;
 module.exports.default = internalIp;
