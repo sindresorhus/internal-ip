@@ -16,7 +16,9 @@ test('IPv6', async t => {
 });
 
 test('IPv4', async t => {
-	t.true(isIPv4(await internalIp.v4()));
+	const ip = await internalIp.v4();
+	console.log(ip);
+	t.true(isIPv4(ip));
 });
 
 test('synchronous IPv6', t => {
@@ -29,5 +31,7 @@ test('synchronous IPv6', t => {
 });
 
 test('synchronous IPv4', t => {
-	t.true(isIPv4(internalIp.v4.sync()));
+	const ip = internalIp.v4.sync();
+	console.log(ip);
+	t.true(isIPv4(ip));
 });
