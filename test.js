@@ -2,8 +2,8 @@ import {isIPv4, isIPv6} from 'net';
 import test from 'ava';
 import internalIp from '.';
 
-// Travis VMs don't have IPs on their interfaces
-// https://docs.travis-ci.com/user/ci-environment/#Networking
+// Travis VMs have no IPv6 interfaces
+// https://docs.travis-ci.com/user/ip-addresses/
 const isCI = Boolean(process.env.CI);
 
 test('IPv6', async t => {
@@ -16,12 +16,7 @@ test('IPv6', async t => {
 });
 
 test('IPv4', async t => {
-	const ip = await internalIp.v4();
-	if (isCI) {
-		t.is(ip, null);
-	} else {
-		t.true(isIPv4(ip));
-	}
+	t.true(isIPv4(await internalIp.v4()));
 });
 
 test('synchronous IPv6', t => {
@@ -34,10 +29,5 @@ test('synchronous IPv6', t => {
 });
 
 test('synchronous IPv4', t => {
-	const ip = internalIp.v4.sync();
-	if (isCI) {
-		t.is(ip, null);
-	} else {
-		t.true(isIPv4(ip));
-	}
+	t.true(isIPv4(internalIp.v4.sync()));
 });
