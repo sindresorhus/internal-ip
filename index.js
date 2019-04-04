@@ -47,4 +47,5 @@ internalIp.v6.sync = () => sync('v6');
 internalIp.v4.sync = () => sync('v4');
 
 module.exports = internalIp;
+// TODO: Remove this for the next major release
 module.exports.default = internalIp;
