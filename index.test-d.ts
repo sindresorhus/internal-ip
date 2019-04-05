@@ -1,5 +1,5 @@
-import {expectType} from 'tsd-check';
-import internalIp from '.';
+import {expectType} from 'tsd';
+import internalIp = require('.');
 
 expectType<string>(await internalIp.v4());
 expectType<string>(await internalIp.v6());
