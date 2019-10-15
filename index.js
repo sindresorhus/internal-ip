@@ -25,17 +25,20 @@ function findIp(gateway) {
 	return ip;
 }
 
-function promise(family) {
-	return defaultGateway[family]().then(result => {
+async function promise(family) {
+	try {
+		const result = await defaultGateway[family]();
 		return findIp(result.gateway) || null;
-	}).catch(() => null);
+	} catch (_) {
+		return null;
+	}
 }
 
 function sync(family) {
 	try {
 		const result = defaultGateway[family].sync();
 		return findIp(result.gateway) || null;
-	} catch (error) {
+	} catch (_) {
 		return null;
 	}
 }
@@ -47,5 +50,3 @@ internalIp.v6.sync = () => sync('v6');
 internalIp.v4.sync = () => sync('v4');
 
 module.exports = internalIp;
-// TODO: Remove this for the next major release
-module.exports.default = internalIp;
