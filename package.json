@@ -1,6 +1,6 @@
 {
 	"name": "internal-ip",
-	"version": "4.3.0",
+	"version": "5.0.0",
 	"description": "Get your internal IP address",
 	"license": "MIT",
 	"repository": "sindresorhus/internal-ip",
