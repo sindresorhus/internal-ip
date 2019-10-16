@@ -28,19 +28,15 @@ function findIp(gateway) {
 async function promise(family) {
 	try {
 		const result = await defaultGateway[family]();
-		return findIp(result.gateway) || null;
-	} catch (_) {
-		return null;
-	}
+		return findIp(result.gateway);
+	} catch (_) {}
 }
 
 function sync(family) {
 	try {
 		const result = defaultGateway[family].sync();
-		return findIp(result.gateway) || null;
-	} catch (_) {
-		return null;
-	}
+		return findIp(result.gateway);
+	} catch (_) {}
 }
 
 const internalIp = {};

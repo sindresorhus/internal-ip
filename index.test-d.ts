@@ -1,8 +1,8 @@
 import {expectType} from 'tsd';
 import internalIp = require('.');
 
-expectType<string>(await internalIp.v4());
-expectType<string>(await internalIp.v6());
+expectType<string | undefined>(await internalIp.v4());
+expectType<string | undefined>(await internalIp.v6());
 
-expectType<string>(internalIp.v4.sync());
-expectType<string>(internalIp.v6.sync());
+expectType<string | undefined>(internalIp.v4.sync());
+expectType<string | undefined>(internalIp.v6.sync());

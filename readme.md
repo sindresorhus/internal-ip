@@ -30,7 +30,7 @@ console.log(internalIp.v4.sync())
 //=> '10.0.0.79'
 ```
 
-The module returns the address of the internet-facing interface, as determined from the default gateway. When the address cannot be determined for any reason, `null` will be returned.
+The module returns the address of the internet-facing interface, as determined from the default gateway. When the address cannot be determined for any reason, `undefined` will be returned.
 
 The module relies on operating systems tools. On Linux and Android, the `ip` command must be available, which depending on distribution might not be installed by default. It is usually provided by the `iproute2` package.
 
