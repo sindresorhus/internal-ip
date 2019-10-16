@@ -45,9 +45,6 @@ interface v4 {
 declare const internalIp: {
 	v6: v6;
 	v4: v4;
-
-	// TODO: Remove this for the next major release
-	default: typeof internalIp;
 };
 
 export = internalIp;
