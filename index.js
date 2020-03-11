@@ -1,42 +1,36 @@
 'use strict';
-const os = require('os');
 const defaultGateway = require('default-gateway');
-const ipaddr = require('ipaddr.js');
+const {networkInterfaces} = require('os');
+const {parse, parseCIDR} = require('ipaddr.js');
 
 function findIp(gateway) {
-	const interfaces = os.networkInterfaces();
-	const gatewayIp = ipaddr.parse(gateway);
-	let ip;
+	const gatewayIp = parse(gateway);
 
 	// Look for the matching interface in all local interfaces
-	Object.keys(interfaces).some(name => {
-		return interfaces[name].some(addr => {
-			const prefix = ipaddr.parse(addr.netmask).prefixLengthFromSubnetMask();
-			const net = ipaddr.parseCIDR(`${addr.address}/${prefix}`);
+	for (const addrs of Object.values(networkInterfaces())) {
+		for (const addr of addrs) {
+			const prefix = parse(addr.netmask).prefixLengthFromSubnetMask();
+			const net = parseCIDR(`${addr.address}/${prefix}`);
 
 			if (net[0] && net[0].kind() === gatewayIp.kind() && gatewayIp.match(net)) {
-				ip = net[0].toString();
+				return net[0].toString();
 			}
-
-			return Boolean(ip);
-		});
-	});
-
-	return ip;
+		}
+	}
 }
 
 async function promise(family) {
 	try {
-		const result = await defaultGateway[family]();
-		return findIp(result.gateway);
-	} catch (_) {}
+		const {gateway} = await defaultGateway[family]();
+		return findIp(gateway);
+	} catch {}
 }
 
 function sync(family) {
 	try {
-		const result = defaultGateway[family].sync();
-		return findIp(result.gateway);
-	} catch (_) {}
+		const {gateway} = defaultGateway[family].sync();
+		return findIp(gateway);
+	} catch {}
 }
 
 const internalIp = {};
