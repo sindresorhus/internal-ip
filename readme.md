@@ -2,13 +2,11 @@
 
 > Get your internal IP address
 
-
 ## Install
 
 ```
 $ npm install internal-ip
 ```
-
 
 ## Usage
 
@@ -34,13 +32,11 @@ The module returns the address of the internet-facing interface, as determined f
 
 The module relies on operating systems tools. On Linux and Android, the `ip` command must be available, which depending on distribution might not be installed by default. It is usually provided by the `iproute2` package.
 
-
 ## Related
 
 - [internal-ip-cli](https://github.com/sindresorhus/internal-ip-cli) - CLI for this module
 - [public-ip](https://github.com/sindresorhus/public-ip) - Get your public IP address
 - [default-gateway](https://github.com/silverwind/default-gateway) - Get your default gateway address
-
 
 ---
 
