@@ -23,14 +23,14 @@ async function promise(family) {
 	try {
 		const {gateway} = await defaultGateway[family]();
 		return findIp(gateway);
-	} catch {}
+	} catch(e) {}
 }
 
 function sync(family) {
 	try {
 		const {gateway} = defaultGateway[family].sync();
 		return findIp(gateway);
-	} catch {}
+	} catch(e) {}
 }
 
 const internalIp = {};
