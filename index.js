@@ -8,9 +8,8 @@ function findIp(gateway) {
 
 	// Look for the matching interface in all local interfaces.
 	for (const addresses of Object.values(networkInterfaces())) {
-		for (const address of addresses) {
-			const prefix = parse(address.netmask).prefixLengthFromSubnetMask();
-			const net = parseCIDR(`${address.address}/${prefix}`);
+		for (const {cidr} of addresses) {
+			const net = parseCIDR(cidr);
 
 			if (net[0] && net[0].kind() === gatewayIp.kind() && gatewayIp.match(net)) {
 				return net[0].toString();
