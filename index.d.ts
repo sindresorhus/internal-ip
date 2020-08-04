@@ -6,11 +6,11 @@ interface v6 {
 	```
 	import internalIp = require('internal-ip');
 
-	console.log(await internalIp.v6());
+	console.log(internalIp.v6.sync());
 	//=> 'fe80::1'
 	```
 	*/
-	(): Promise<string | undefined>;
+	sync: () => string | undefined;
 
 	/**
 	@returns The IPv6 address of the internet-facing interface, as determined from the default gateway. When the address cannot be determined for any reason, `undefined` will be returned.
@@ -19,14 +19,27 @@ interface v6 {
 	```
 	import internalIp = require('internal-ip');
 
-	console.log(internalIp.v6.sync());
+	console.log(await internalIp.v6());
 	//=> 'fe80::1'
 	```
 	*/
-	sync(): string | undefined;
+	(): Promise<string | undefined>;
 }
 
 interface v4 {
+	/**
+	@returns The IPv4 address of the internet-facing interface, as determined from the default gateway. When the address cannot be determined for any reason, `undefined` will be returned.
+
+	@example
+	```
+	import internalIp = require('internal-ip');
+
+	console.log(internalIp.v4.sync())
+	//=> '10.0.0.79'
+	```
+	*/
+	sync: () => string | undefined;
+
 	/**
 	@returns The IPv4 address of the internet-facing interface, as determined from the default gateway. When the address cannot be determined for any reason, `undefined` will be returned.
 
@@ -39,19 +52,6 @@ interface v4 {
 	```
 	*/
 	(): Promise<string | undefined>;
-
-	/**
-	@returns The IPv4 address of the internet-facing interface, as determined from the default gateway. When the address cannot be determined for any reason, `undefined` will be returned.
-
-	@example
-	```
-	import internalIp = require('internal-ip');
-
-	console.log(internalIp.v4.sync())
-	//=> '10.0.0.79'
-	```
-	*/
-	sync(): string | undefined;
 }
 
 declare const internalIp: {
