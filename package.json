@@ -21,6 +21,10 @@
 		"index.d.ts",
 		"browser.js"
 	],
+	"exports": {
+		"browser": "./browser.js",
+		"default": "./index.js"
+	},
 	"keywords": [
 		"ip",
 		"ipv6",
@@ -43,9 +47,5 @@
 		"tsd": "^0.13.1",
 		"xo": "^0.32.1"
 	},
-	"browser": "browser.js",
-	"exports": {
-		"browser": "./browser.js",
-		"default": "./index.js"
-	}
+	"browser": "browser.js"
 }
