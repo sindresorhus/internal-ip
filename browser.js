@@ -18,7 +18,7 @@ const ipv4 = async ({isSecondTry = false} = {}) => {
 		const result = candidate.candidate.split(' ')[4];
 		if (result.endsWith('.local')) {
 			if (isSecondTry) {
-				return undefined;
+				return;
 			}
 
 			const inputDevices = await navigator.mediaDevices.enumerateDevices();
@@ -31,11 +31,13 @@ const ipv4 = async ({isSecondTry = false} = {}) => {
 			} else if (inputDeviceTypes.has('videoinput')) {
 				constraints.video = true;
 			} else {
-				return undefined;
+				return;
 			}
 
 			const mediaStream = await navigator.mediaDevices.getUserMedia(constraints);
-			mediaStream.getTracks().forEach(track => track.stop());
+			for (const track of mediaStream.getTracks()) {
+				track.stop();
+			}
 			return ipv4({isSecondTry: true});
 		}
 
@@ -47,7 +49,7 @@ export const v4 = async () => {
 	try {
 		return await ipv4();
 	} catch {
-		return undefined;
+		return;
 	}
 };
 
