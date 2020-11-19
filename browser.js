@@ -38,6 +38,7 @@ const ipv4 = async ({isSecondTry = false} = {}) => {
 			for (const track of mediaStream.getTracks()) {
 				track.stop();
 			}
+
 			return ipv4({isSecondTry: true});
 		}
 
@@ -48,9 +49,7 @@ const ipv4 = async ({isSecondTry = false} = {}) => {
 export const v4 = async () => {
 	try {
 		return await ipv4();
-	} catch {
-		return;
-	}
+	} catch {}
 };
 
 v4.sync = () => undefined;
