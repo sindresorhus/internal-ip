@@ -18,8 +18,13 @@
 	},
 	"files": [
 		"index.js",
-		"index.d.ts"
+		"index.d.ts",
+		"browser.js"
 	],
+	"exports": {
+		"browser": "./browser.js",
+		"default": "./index.js"
+	},
 	"keywords": [
 		"ip",
 		"ipv6",
@@ -34,11 +39,14 @@
 	],
 	"dependencies": {
 		"default-gateway": "^6.0.0",
-		"ipaddr.js": "^1.9.1"
+		"ipaddr.js": "^1.9.1",
+		"is-ip": "^3.1.0",
+		"p-event": "^4.2.0"
 	},
 	"devDependencies": {
 		"ava": "^2.4.0",
 		"tsd": "^0.13.1",
 		"xo": "^0.32.1"
-	}
+	},
+	"browser": "browser.js"
 }
