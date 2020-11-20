@@ -46,7 +46,7 @@ const getIp = async ({isSecondTry = false} = {}) => {
 
 			return result;
 		}
-	} catch { }
+	} catch {}
 };
 
 export const v4 = async () => {
