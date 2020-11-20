@@ -8,7 +8,7 @@ const getIp = async ({isSecondTry = false} = {}) => {
 		const peerConnection = new RTCPeerConnection({iceServers: []});
 
 		peerConnection.createDataChannel('');
-		peerConnection.createOffer(peerConnection.setLocalDescription.bind(peerConnection), () => { });
+		peerConnection.createOffer(peerConnection.setLocalDescription.bind(peerConnection), () => {});
 
 		const {candidate} = await pEvent(peerConnection, 'icecandidate', {
 			timeout: 10000
