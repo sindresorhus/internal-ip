@@ -1,4 +1,4 @@
-# internal-ip [![Build Status](https://travis-ci.com/sindresorhus/internal-ip.svg?branch=master)](https://travis-ci.com/github/sindresorhus/internal-ip)
+# internal-ip
 
 > Get your internal IP address
 
