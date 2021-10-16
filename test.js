@@ -1,13 +1,12 @@
-import {isIPv4, isIPv6} from 'net';
+import {isIPv4, isIPv6} from 'node:net';
+import process from 'node:process';
 import test from 'ava';
-import internalIp from '.';
+import {internalIpV6, internalIpV4, internalIpV6Sync, internalIpV4Sync} from './index.js';
 
-// Travis VMs don't have IPs on their interfaces.
-// https://docs.travis-ci.com/user/ci-environment/#Networking
 const isCI = Boolean(process.env.CI);
 
-test('IPv6', async t => {
-	const ip = await internalIp.v6();
+test('IPv6 - async', async t => {
+	const ip = await internalIpV6();
 	if (isCI) {
 		t.is(ip, undefined);
 	} else {
@@ -15,17 +14,13 @@ test('IPv6', async t => {
 	}
 });
 
-test('IPv4', async t => {
-	const ip = await internalIp.v4();
-	if (isCI) {
-		t.is(ip, undefined);
-	} else {
-		t.true(isIPv4(ip));
-	}
+test('IPv4 - async', async t => {
+	const ip = await internalIpV4();
+	t.true(isIPv4(ip));
 });
 
-test('synchronous IPv6', t => {
-	const ip = internalIp.v6.sync();
+test('IPv6 - sync', t => {
+	const ip = internalIpV6Sync();
 	if (isCI) {
 		t.is(ip, undefined);
 	} else {
@@ -33,11 +28,7 @@ test('synchronous IPv6', t => {
 	}
 });
 
-test('synchronous IPv4', t => {
-	const ip = internalIp.v4.sync();
-	if (isCI) {
-		t.is(ip, undefined);
-	} else {
-		t.true(isIPv4(ip));
-	}
+test('IPv4 - sync', t => {
+	const ip = internalIpV4Sync();
+	t.true(isIPv4(ip));
 });
