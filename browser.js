@@ -63,10 +63,6 @@ export async function internalIpV4() {
 	}
 }
 
-export function internalIpV6Sync() {
-	return undefined;
-}
+export function internalIpV6Sync() {}
 
-export function internalIpV4Sync() {
-	return undefined;
-}
+export function internalIpV4Sync() {}
