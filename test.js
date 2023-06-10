@@ -9,10 +9,10 @@ const canTestV6 = env.CI ? platform() === 'darwin' : true;
 
 test('IPv6 - async', async t => {
 	if (!canTestV6) {
-		return;
+		t.true(isIPv6(await internalIpV6()));
+	} else {
+		t.is(ip, undefined);
 	}
-
-	t.true(isIPv6(await internalIpV6()));
 });
 
 test('IPv4 - async', async t => {
@@ -20,11 +20,11 @@ test('IPv4 - async', async t => {
 });
 
 test('IPv6 - sync', t => {
-	if (!canTestV6) {
-		return;
+	if (canTestV6) {
+		t.true(isIPv6(internalIpV6Sync()));
+	} else {
+		t.is(ip, undefined);
 	}
-
-	t.true(isIPv6(internalIpV6Sync()));
 });
 
 test('IPv4 - sync', t => {
