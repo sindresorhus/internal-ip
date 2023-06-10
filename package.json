@@ -11,6 +11,7 @@
 		"url": "https://sindresorhus.com"
 	},
 	"type": "module",
+	"sideEffects": false,
 	"exports": {
 		"node": "./index.js",
 		"default": "./browser.js"
