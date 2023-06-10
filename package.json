@@ -16,7 +16,7 @@
 		"default": "./browser.js"
 	},
 	"engines": {
-		"node": "^12.20.0 || ^14.13.1 || >=16.0.0"
+		"node": ">=16.0.0"
 	},
 	"scripts": {
 		"test": "xo && ava && tsd"
@@ -40,9 +40,9 @@
 		"gateway"
 	],
 	"dependencies": {
-		"default-gateway": "^6.0.3",
-		"ipaddr.js": "^2.0.1",
-		"is-ip": "^3.1.0",
+		"cidr-tools": "^6.4.0",
+		"default-gateway": "^7.2.0",
+		"is-ip": "^5.0.0",
 		"p-event": "^4.2.0"
 	},
 	"devDependencies": {
