@@ -1,19 +1,25 @@
 name: CI
-on: [push, pull_request]
-
+on:
+  - push
+  - pull_request
 jobs:
   test:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04, ubuntu-22.04, macOS-latest, windows-latest]
-        node: [16, 18, 20]
-
+        os:
+          - ubuntu-20.04
+          - ubuntu-22.04
+          - macOS-latest
+          - windows-latest
+        node-version:
+          - 18
+          - 16
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node }}
+          node-version: ${{ matrix.node-version }}
       - run: npm install
       - run: npm test
