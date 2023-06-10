@@ -1,49 +1,38 @@
 import {networkInterfaces} from 'node:os';
-import defaultGateway from 'default-gateway';
-import ip from 'ipaddr.js';
+import {gateway4async, gateway4sync, gateway6async, gateway6sync} from 'default-gateway';
+import {contains, normalize} from 'cidr-tools';
 
-function findIp(gateway) {
-	const gatewayIp = ip.parse(gateway);
-
-	// Look for the matching interface in all local interfaces.
+function findIp({gateway}) {
+	// Look for the matching interface in all local interfaces
 	for (const addresses of Object.values(networkInterfaces())) {
 		for (const {cidr} of addresses) {
-			const net = ip.parseCIDR(cidr);
-
-			// eslint-disable-next-line unicorn/prefer-regexp-test
-			if (net[0] && net[0].kind() === gatewayIp.kind() && gatewayIp.match(net)) {
-				return net[0].toString();
+			if (contains(cidr, gateway)) {
+				return normalize(cidr).split('/')[0];
 			}
 		}
 	}
 }
 
-async function async(family) {
-	try {
-		const {gateway} = await defaultGateway[family]();
-		return findIp(gateway);
-	} catch {}
-}
-
-function sync(family) {
-	try {
-		const {gateway} = defaultGateway[family].sync();
-		return findIp(gateway);
-	} catch {}
-}
-
 export async function internalIpV6() {
-	return async('v6');
+	try {
+		return findIp((await gateway6async()));
+	} catch {}
 }
 
 export async function internalIpV4() {
-	return async('v4');
+	try {
+		return findIp((await gateway4async()));
+	} catch {}
 }
 
 export function internalIpV6Sync() {
-	return sync('v6');
+	try {
+		return findIp(gateway6sync());
+	} catch {}
 }
 
 export function internalIpV4Sync() {
-	return sync('v4');
+	try {
+		return findIp(gateway4sync());
+	} catch {}
 }

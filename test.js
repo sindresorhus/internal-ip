@@ -1,34 +1,32 @@
 import {isIPv4, isIPv6} from 'node:net';
-import process from 'node:process';
+import {env} from 'node:process';
+import {platform} from 'node:os';
 import test from 'ava';
 import {internalIpV6, internalIpV4, internalIpV6Sync, internalIpV4Sync} from './index.js';
 
-const isCI = Boolean(process.env.CI);
+// Only Darwin has IPv6 on GitHub Actions
+const canTestV6 = env.CI ? platform() === 'darwin' : true;
 
 test('IPv6 - async', async t => {
-	const ip = await internalIpV6();
-	if (isCI) {
-		t.is(ip, undefined);
+	if (canTestV6) {
+		t.true(isIPv6(await internalIpV6()));
 	} else {
-		t.true(isIPv6(ip));
+		t.is(await internalIpV6(), undefined);
 	}
 });
 
 test('IPv4 - async', async t => {
-	const ip = await internalIpV4();
-	t.true(isIPv4(ip));
+	t.true(isIPv4(await internalIpV4()));
 });
 
 test('IPv6 - sync', t => {
-	const ip = internalIpV6Sync();
-	if (isCI) {
-		t.is(ip, undefined);
+	if (canTestV6) {
+		t.true(isIPv6(internalIpV6Sync()));
 	} else {
-		t.true(isIPv6(ip));
+		t.is(internalIpV6Sync(), undefined);
 	}
 });
 
 test('IPv4 - sync', t => {
-	const ip = internalIpV4Sync();
-	t.true(isIPv4(ip));
+	t.true(isIPv4(internalIpV4Sync()));
 });

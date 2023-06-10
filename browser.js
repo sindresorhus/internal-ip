@@ -1,6 +1,6 @@
 /* eslint-env browser */
 import pEvent from 'p-event';
-import isIp from 'is-ip';
+import {isIPv4, isIPv6} from 'is-ip';
 
 const getIp = async ({isSecondTry = false} = {}) => {
 	try {
@@ -51,14 +51,14 @@ const getIp = async ({isSecondTry = false} = {}) => {
 
 export async function internalIpV6() {
 	const result = await getIp();
-	if (isIp.v6(result)) {
+	if (isIPv6(result)) {
 		return result;
 	}
 }
 
 export async function internalIpV4() {
 	const result = await getIp();
-	if (isIp.v4(result)) {
+	if (isIPv4(result)) {
 		return result;
 	}
 }
