@@ -1,5 +1,5 @@
 /* eslint-env browser */
-import pEvent from 'p-event';
+import {pEvent} from 'p-event';
 import {isIPv4, isIPv6} from 'is-ip';
 
 const getIp = async ({isSecondTry = false} = {}) => {
