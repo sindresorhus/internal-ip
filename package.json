@@ -17,7 +17,7 @@
 		"default": "./browser.js"
 	},
 	"engines": {
-		"node": ">=16.0.0"
+		"node": ">=16"
 	},
 	"scripts": {
 		"test": "xo && ava && tsd"
