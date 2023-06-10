@@ -8,7 +8,7 @@ import {internalIpV6, internalIpV4, internalIpV6Sync, internalIpV4Sync} from './
 const canTestV6 = env.CI ? platform() === 'darwin' : true;
 
 test('IPv6 - async', async t => {
-	if (!canTestV6) {
+	if (canTestV6) {
 		t.true(isIPv6(await internalIpV6()));
 	} else {
 		t.is(ip, undefined);
