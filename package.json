@@ -41,7 +41,7 @@
 	],
 	"dependencies": {
 		"cidr-tools": "^6.4.0",
-		"default-gateway": "^7.2.0",
+		"default-gateway": "^7.2.1",
 		"is-ip": "^5.0.0",
 		"p-event": "^4.2.0"
 	},
