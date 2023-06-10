@@ -11,7 +11,7 @@ test('IPv6 - async', async t => {
 	if (canTestV6) {
 		t.true(isIPv6(await internalIpV6()));
 	} else {
-		t.is(ip, undefined);
+		t.is(await internalIpV6(), undefined);
 	}
 });
 
@@ -23,7 +23,7 @@ test('IPv6 - sync', t => {
 	if (canTestV6) {
 		t.true(isIPv6(internalIpV6Sync()));
 	} else {
-		t.is(ip, undefined);
+		t.is(internalIpV6Sync(), undefined);
 	}
 });
 
