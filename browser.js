@@ -2,12 +2,13 @@
 import {pEvent} from 'p-event';
 import {isIPv4, isIPv6} from 'is-ip';
 
-const getIp = async ({isSecondTry = false} = {}) => {
+async function tryGetIp() {
 	try {
 		const peerConnection = new RTCPeerConnection({iceServers: []});
 
 		peerConnection.createDataChannel('');
-		peerConnection.createOffer(peerConnection.setLocalDescription.bind(peerConnection), () => {});
+		const offer = await peerConnection.createOffer();
+		await peerConnection.setLocalDescription(offer);
 
 		const {candidate} = await pEvent(peerConnection, 'icecandidate', {
 			timeout: 10_000,
@@ -15,7 +16,7 @@ const getIp = async ({isSecondTry = false} = {}) => {
 
 		peerConnection.close();
 
-		if (!(candidate && candidate.candidate)) {
+		if (!candidate?.candidate) {
 			return;
 		}
 
@@ -23,31 +24,35 @@ const getIp = async ({isSecondTry = false} = {}) => {
 		if (!result.endsWith('.local')) {
 			return result;
 		}
-
-		if (isSecondTry) {
-			return;
-		}
-
-		const inputDevices = await navigator.mediaDevices.enumerateDevices();
-		const inputDeviceTypes = new Set(inputDevices.map(({kind}) => kind));
-
-		const constraints = {};
-		if (inputDeviceTypes.has('audioinput')) {
-			constraints.audio = true;
-		} else if (inputDeviceTypes.has('videoinput')) {
-			constraints.video = true;
-		} else {
-			return;
-		}
-
-		const mediaStream = await navigator.mediaDevices.getUserMedia(constraints);
-		for (const track of mediaStream.getTracks()) {
-			track.stop();
-		}
-
-		return await getIp({isSecondTry: true});
 	} catch {}
-};
+}
+
+async function getIp() {
+	const ip = await tryGetIp();
+
+	if (ip) {
+		return ip;
+	}
+
+	const inputDevices = await navigator.mediaDevices.enumerateDevices();
+	const inputDeviceTypes = new Set(inputDevices.map(({kind}) => kind));
+
+	const constraints = {};
+	if (inputDeviceTypes.has('audioinput')) {
+		constraints.audio = true;
+	} else if (inputDeviceTypes.has('videoinput')) {
+		constraints.video = true;
+	} else {
+		return;
+	}
+
+	const mediaStream = await navigator.mediaDevices.getUserMedia(constraints);
+	for (const track of mediaStream.getTracks()) {
+		track.stop();
+	}
+
+	return await tryGetIp();
+}
 
 export async function internalIpV6() {
 	const result = await getIp();
