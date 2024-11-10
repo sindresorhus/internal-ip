@@ -51,7 +51,7 @@ async function getIp() {
 		track.stop();
 	}
 
-	return await tryGetIp();
+	return tryGetIp();
 }
 
 export async function internalIpV6() {
