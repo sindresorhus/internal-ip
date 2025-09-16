@@ -1,6 +1,6 @@
 {
 	"name": "internal-ip",
-	"version": "8.0.0",
+	"version": "8.0.1",
 	"description": "Get your internal IP address",
 	"license": "MIT",
 	"repository": "sindresorhus/internal-ip",
@@ -17,7 +17,6 @@
 		"node": "./index.js",
 		"default": "./browser.js"
 	},
-	"sideEffects": false,
 	"engines": {
 		"node": ">=16"
 	},
