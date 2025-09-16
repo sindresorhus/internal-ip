@@ -9,16 +9,14 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - ubuntu-20.04
-          - ubuntu-22.04
+          - ubuntu-latest
           - macOS-latest
           - windows-latest
         node-version:
-          - 18
-          - 16
+          - 24
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm install

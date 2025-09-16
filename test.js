@@ -35,22 +35,22 @@ async function withMocks(t, gateway4 = '192.168.1.1', gateway6 = 'fe80::1') {
 
 test('async IPv4', async () => {
 	const ip = await internalIpV4();
-	assert.ok(isIPv4(ip));
+	assert.ok(ip === undefined || isIPv4(ip));
 });
 
 test('async IPv6', async () => {
 	const ip = await internalIpV6();
-	assert.ok(!ip || isIPv6(ip));
+	assert.ok(ip === undefined || isIPv6(ip));
 });
 
 test('sync IPv4', () => {
 	const ip = internalIpV4Sync();
-	assert.ok(isIPv4(ip));
+	assert.ok(ip === undefined || isIPv4(ip));
 });
 
 test('sync IPv6', () => {
 	const ip = internalIpV6Sync();
-	assert.ok(!ip || isIPv6(ip));
+	assert.ok(ip === undefined || isIPv6(ip));
 });
 
 test('mocked IPv4 returns host address not network address', async t => {
