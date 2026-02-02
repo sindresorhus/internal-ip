@@ -1,5 +1,5 @@
 /**
-@returns The IPv6 address of the internet-facing interface, as determined from the default gateway. When the address cannot be determined for any reason, `undefined` will be returned.
+@returns The IPv6 address of the internet-facing interface. When the address cannot be determined for any reason, such as when multiple non-internal interfaces exist, `undefined` will be returned.
 
 @example
 ```
@@ -12,7 +12,7 @@ console.log(await internalIpV6());
 export function internalIpV6(): Promise<string | undefined>;
 
 /**
-@returns The IPv4 address of the internet-facing interface, as determined from the default gateway. When the address cannot be determined for any reason, `undefined` will be returned.
+@returns The IPv4 address of the internet-facing interface. When the address cannot be determined for any reason, such as when multiple non-internal interfaces exist, `undefined` will be returned.
 
 @example
 ```
@@ -25,7 +25,7 @@ console.log(await internalIpV4());
 export function internalIpV4(): Promise<string | undefined>;
 
 /**
-@returns The IPv6 address of the internet-facing interface, as determined from the default gateway. When the address cannot be determined for any reason, `undefined` will be returned.
+@returns The IPv6 address of the internet-facing interface. When the address cannot be determined for any reason, such as when multiple non-internal interfaces exist, `undefined` will be returned.
 
 @example
 ```
@@ -38,7 +38,7 @@ console.log(internalIpV6Sync());
 export function internalIpV6Sync(): string | undefined;
 
 /**
-@returns The IPv4 address of the internet-facing interface, as determined from the default gateway. When the address cannot be determined for any reason, `undefined` will be returned.
+@returns The IPv4 address of the internet-facing interface. When the address cannot be determined for any reason, such as when multiple non-internal interfaces exist, `undefined` will be returned.
 
 @example
 ```

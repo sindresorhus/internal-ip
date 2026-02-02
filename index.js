@@ -1,38 +1,117 @@
+import {createSocket} from 'node:dgram';
 import {networkInterfaces} from 'node:os';
-import {gateway4async, gateway4sync, gateway6async, gateway6sync} from 'default-gateway';
-import {contains} from 'cidr-tools';
 
-function findIp({gateway}) {
-	// Look for the matching interface in all local interfaces
-	for (const addresses of Object.values(networkInterfaces())) {
-		for (const {cidr} of addresses) {
-			if (contains(cidr, gateway)) {
-				return cidr.split('/')[0];
+function isLinkLocalAddress(family, address) {
+	if (family === 'IPv6') {
+		return address.startsWith('fe80');
+	}
+
+	if (family === 'IPv4') {
+		return address.startsWith('169.254.');
+	}
+
+	return false;
+}
+
+function findIpFromInterfaces(family) {
+	let globalAddress;
+	let globalInterfaceName;
+	let linkLocalAddress;
+	let linkLocalInterfaceName;
+	let hasMultipleLinkLocalInterfaces = false;
+
+	for (const [interfaceName, addresses] of Object.entries(networkInterfaces())) {
+		if (!addresses) {
+			continue;
+		}
+
+		let interfaceGlobalAddress;
+		let interfaceLinkLocalAddress;
+
+		for (const networkInterface of addresses) {
+			if (networkInterface.internal || networkInterface.family !== family) {
+				continue;
 			}
+
+			if (isLinkLocalAddress(family, networkInterface.address)) {
+				interfaceLinkLocalAddress ??= networkInterface.address;
+				continue;
+			}
+
+			interfaceGlobalAddress ??= networkInterface.address;
+		}
+
+		if (interfaceGlobalAddress) {
+			if (globalAddress && globalInterfaceName !== interfaceName) {
+				return;
+			}
+
+			globalAddress = interfaceGlobalAddress;
+			globalInterfaceName = interfaceName;
+			continue;
+		}
+
+		if (interfaceLinkLocalAddress && !globalAddress) {
+			if (linkLocalAddress && linkLocalInterfaceName !== interfaceName) {
+				hasMultipleLinkLocalInterfaces = true;
+				continue;
+			}
+
+			linkLocalAddress = interfaceLinkLocalAddress;
+			linkLocalInterfaceName = interfaceName;
 		}
 	}
+
+	if (globalAddress) {
+		return globalAddress;
+	}
+
+	if (hasMultipleLinkLocalInterfaces) {
+		return;
+	}
+
+	return linkLocalAddress;
+}
+
+function findIpViaUdp(socketType, remoteAddress) {
+	return new Promise((resolve, reject) => {
+		const socket = createSocket(socketType);
+		socket.unref();
+		socket.on('error', error => {
+			socket.close();
+			reject(error);
+		});
+		socket.connect(1, remoteAddress, () => {
+			const {address} = socket.address();
+			socket.close();
+			resolve(address);
+		});
+	});
+}
+
+async function findIp(socketType, remoteAddress, family) {
+	try {
+		const address = await findIpViaUdp(socketType, remoteAddress);
+		if (address && address !== '::' && address !== '0.0.0.0') {
+			return address;
+		}
+	} catch {}
+
+	return findIpFromInterfaces(family);
 }
 
 export async function internalIpV6() {
-	try {
-		return findIp((await gateway6async()));
-	} catch {}
+	return findIp('udp6', '2001:4860:4860::8888', 'IPv6');
 }
 
 export async function internalIpV4() {
-	try {
-		return findIp((await gateway4async()));
-	} catch {}
+	return findIp('udp4', '8.8.8.8', 'IPv4');
 }
 
 export function internalIpV6Sync() {
-	try {
-		return findIp(gateway6sync());
-	} catch {}
+	return findIpFromInterfaces('IPv6');
 }
 
 export function internalIpV4Sync() {
-	try {
-		return findIp(gateway4sync());
-	} catch {}
+	return findIpFromInterfaces('IPv4');
 }
