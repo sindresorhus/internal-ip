@@ -1,7 +1,12 @@
 import {isIPv4, isIPv6} from 'node:net';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {internalIpV6, internalIpV4, internalIpV6Sync, internalIpV4Sync} from './index.js';
+import {
+	internalIpV6,
+	internalIpV4,
+	internalIpV6Sync,
+	internalIpV4Sync,
+} from './index.js';
 
 const mockInterfaces = () => ({
 	lo0: [

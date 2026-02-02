@@ -1,4 +1,4 @@
-/* eslint-env browser */
+/* globals RTCPeerConnection */
 import {pEvent} from 'p-event';
 import {isIPv4, isIPv6} from 'is-ip';
 
